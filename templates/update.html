@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="/static/blog.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container mx-auto shadow-lg card px-5 py-5 my-5">
+        <h6 class="display-6 text-center">Nobelium24's Blog</h6>
+        <p>{{post}}</p>
+        <form action="/blog" method="get">
+            <button class="btn btn-dark mx-3 my-3">Make a post</button>
+        </form>
+        <form action="/posts" method="get">
+            <button class="btn btn-dark mx-3 my-3">View posts</button>
+        </form>
+        @if auth()
+        <form action="/post/{{ post.id }}/update" method="POST">
+            {{ csrf_field }}
+        
+            <label for="">Title</label>
+            <input type="text" class="form-control" name="title" value="{{ post.title }}"><br>
+        
+            <label>Body</label>
+            <textarea class="form-control" name="body">{{ post.body }}</textarea><br>
+        
+            <input type="submit" value="Update" class="btn btn-dark my-3">
+        </form>
+        @else
+        <a href="/login">Please Login</a>
+        @endif
+    </div>
+</body>
+
+</html>
